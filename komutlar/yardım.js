@@ -1,8 +1,8 @@
-//BU ALTYAPI WHYBOLU CODEYE AİTTİR ÇALINMASI YASAKTIR!
+//BU ALTYAPI Pink Code Share AİTTİR ÇALINMASI YASAKTIR!
 const Discord = require("discord.js");
 
 module.exports.run = async (client, message, args) => {
-  const yardım = new Discord.MessageEmbed()
+  const pinkcode = new Discord.MessageEmbed()
   .setAuthor("MC-AT")
   .setTitle("MC-AT BOT")
   .setUrl("destek sunucunuz")
@@ -16,19 +16,19 @@ module.exports.run = async (client, message, args) => {
   .addField("Webpanel", "[Tıkla](https://www.mcadventuretime.com/dc/)")
   .setFooter("© Mcadventuretime.com")
   .setTimestamp()
-  message.channel.send(yardım)
+  message.channel.send(pinkcode)
 }
 
 module.exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ["help"],
+  aliases: ["help","komutlar","yardım-menüsü","y"],
   permLevel: 0
 };
 
 module.exports.help = {
   name: 'yardım',
-  description: 'MC-AT Yardım',
+  description: 'Pink Code Share | MC-AT Yardım',
   usage: 'yardım'
 };
-//BU ALTYAPI WHYBOLU CODEYE AİTTİR ÇALINMASI YASAKTIR!
+//BU ALTYAPI Pink Code Share AİTTİR ÇALINMASI YASAKTIR!
