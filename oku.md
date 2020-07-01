@@ -7,3 +7,7 @@
                             Açıklama
 
 Pink Code Shareye Aitdir! İzinsiz Çalmak Paylaşmak Yasak!
+
+
+
+BU ARADA ÇALANLAR FLN İÇİN SÖYLÜYORUM TÜM TELİF HAKLARINA TABİDİR
