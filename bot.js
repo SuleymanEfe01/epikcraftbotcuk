@@ -185,9 +185,7 @@ client.on("message", msg => {
             if (!msg.member.hasPermission("BAN_MEMBERS")) {
                   msg.delete();
                     return msg.channel.send(new Discord.MessageEmbed().setDescription('Bu Sunucuda Reklamı Engelliyorum. Bir Daha Reklam Atma (:').setColor("RED"))
-                  
- 
-  msg.delete(5000);                              
+          msg.delete();
  
             }              
           } catch(err) {
@@ -195,29 +193,6 @@ client.on("message", msg => {
           }
         }
     });
-
-
-client.on("messageUpdate", (oldMessage, newMessage) => {
-  
-  
- const i = db.fetch(`${oldMessage.guild.id}.kufur`)
-    if (i) {
-        const kufur2 = [".com", ".net", ".xyz", ".tk", ".pw", ".io", ".me", ".gg", "www.", "https", "http", ".gl", ".org", ".com.tr", ".biz", "net", ".rf.gd", ".az", ".party", "discord.gg",];
-        if (kufur2.some(word => newMessage.content.includes(word))) {
-          try {
-            if (!oldMessage.member.hasPermission("BAN_MEMBERS")) {
-                  oldMessage.delete();
-                          
-                      return oldMessage.channel.reply(new Discord.MessageEmbed().setDescription('Bu Sunucuda Reklamı Engelliyorum. Bir Daha Reklam Atma (:').setColor("RED"))
-            }              
-          } catch(err) {
-            console.log(err);
-          }
-        }
-    }
-    if (!i) return;
-});
-
 
 
 
