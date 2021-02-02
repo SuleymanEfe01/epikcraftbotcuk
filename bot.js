@@ -129,3 +129,112 @@ client.on('error', e => {
 
 //KOMUTLAR BİTİŞ
 client.login(ayarlar.token);
+
+
+
+client.on("message", async msg => {
+  
+  
+ const i = await db.fetch(`kufur_${msg.guild.id}`)
+    if (i == "acik") {
+        const kufur = ["oç", "oc", "o c", "am", "sik", "tassak", "taşşak", "a m", "sikim", "siqim", "siq", "sq", "amsik", "amsk", "amsq", "piç kurusu", "piq kqurusu", "kahpe", "kahbe", "amık", "yarram", "ananıskm", "ananaısqm", "anenoc", "anensqm", "anensq", "mk", "mq", "amq", "amk", "orqsu", "orosqu", "ananı sikiyim", "göt", "annen", "annenkucumda", "annneni", "annennni"];
+        if (kufur.some(word => msg.content.includes(word))) {
+          try {
+            if (!msg.member.hasPermission("BAN_MEMBERS")) {
+                  msg.delete();
+                          
+                      return msg.reply(new Discord.MessageEmbed().setDescription('Bu Sunucuda Küfüru Engelliyorum. Bir Daha Küfür Etme!').setColor("RED"))
+            }              
+          } catch(err) {
+            console.log(err);
+          }
+        }
+    }
+    if (!i) return;
+});
+
+client.on("messageUpdate", (oldMessage, newMessage) => {
+  
+  
+ const i = db.fetch(`${oldMessage.guild.id}.kufur`)
+    if (i) {
+        const kufur = ["oç", "amk", "ananı sikiyim", "ananıskm", "piç", "amk", "amsk", "sikim", "sikiyim", "orospu çocuğu", "piç kurusu", "kahpe", "orospu", "mal", "sik", "yarrak", "am", "amcık", "amık", "yarram", "sikimi ye", "mk", "mq", "aq", "ak", "amq",];
+        if (kufur.some(word => newMessage.content.includes(word))) {
+          try {
+            if (!oldMessage.member.hasPermission("BAN_MEMBERS")) {
+                  oldMessage.delete();
+                          
+                      return oldMessage.channel.reply(new Discord.MessageEmbed().setDescription('Bu Sunucuda Küfüru Engelliyorum. Bir Daha Küfür Etme!').setColor("RED"))
+            }              
+          } catch(err) {
+            console.log(err);
+          }
+        }
+    }
+    if (!i) return;
+});
+
+// REKLAM ENGEL GENEL BOT VATİKAN
+
+
+client.on("message", msg => {
+ if(!db.has(`reklam_${msg.guild.id}`)) return;
+        const reklam = [".com", ".net", ".xyz", ".tk", ".pw", ".io", ".me", ".gg", "www.", "https", "http", ".gl", ".org", ".com.tr", ".biz", "net", ".rf.gd", ".az", ".party", "discord.gg",];
+        if (reklam.some(word => msg.content.includes(word))) {
+          try {
+            if (!msg.member.hasPermission("BAN_MEMBERS")) {
+                  msg.delete();
+                    return msg.channel.send(new Discord.MessageEmbed().setDescription('Bu Sunucuda Reklamı Engelliyorum. Bir Daha Reklam Atma (:').setColor("RED"))
+                  
+ 
+  msg.delete(5000);                              
+ 
+            }              
+          } catch(err) {
+            console.log(err);
+          }
+        }
+    });
+
+
+client.on("messageUpdate", (oldMessage, newMessage) => {
+  
+  
+ const i = db.fetch(`${oldMessage.guild.id}.kufur`)
+    if (i) {
+        const kufur2 = [".com", ".net", ".xyz", ".tk", ".pw", ".io", ".me", ".gg", "www.", "https", "http", ".gl", ".org", ".com.tr", ".biz", "net", ".rf.gd", ".az", ".party", "discord.gg",];
+        if (kufur2.some(word => newMessage.content.includes(word))) {
+          try {
+            if (!oldMessage.member.hasPermission("BAN_MEMBERS")) {
+                  oldMessage.delete();
+                          
+                      return oldMessage.channel.reply(new Discord.MessageEmbed().setDescription('Bu Sunucuda Reklamı Engelliyorum. Bir Daha Reklam Atma (:').setColor("RED"))
+            }              
+          } catch(err) {
+            console.log(err);
+          }
+        }
+    }
+    if (!i) return;
+});
+
+
+
+
+client.on("message", msg => {
+  var dm = client.channels.cache.get("806237068250447982"); //mesajın geleceği kanal idsi//
+  if (msg.channel.type === "dm") {
+    if (msg.author.id === client.user.id) return;
+    const botdm = new Discord.MessageEmbed()
+      .setTitle(`${client.user.username} Dm`)
+      .setTimestamp()
+      .setColor("BLUE")
+      .setThumbnail(`${msg.author.avatarURL()}`)
+      .addField(":boy: Gönderen ", msg.author.tag)
+      .addField(":id:  Gönderen ID :", msg.author.id)
+      .addField(":globe_with_meridians: Gönderilen Mesaj", msg.content);
+
+    dm.send(botdm);
+  }
+  if (msg.channel.bot) return;
+});
