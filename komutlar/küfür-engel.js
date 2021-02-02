@@ -2,14 +2,14 @@ const Discord = require("discord.js");
 const db = require("quick.db");
 
 exports.run = async (client, message, args) => {
-  if (args[0] === "acik") {
+  if (args[0] === "aç") {
     db.set(`${message.guild.id}.motion`, true);
     message.channel.send(
       "**Küfür Engel Sistemi Başarılı Şekilde** `Aktif` **Edildi.** **Bot ban yetkisi Olanların Mesajını Silmeyecektir.**"
     );
     return;
   }
-  if (args[0] === "kapali") {
+  if (args[0] === "kapat") {
     db.delete(`${message.guild.id}.motion`);
     message.channel.send(
       "**Başarılı Şekilde** `Devri Dışı` **Edildi.**"
@@ -17,7 +17,7 @@ exports.run = async (client, message, args) => {
     return;
   }
   message.channel.send(
-    "**Lütfen** `acik` **yada** `kapali` **Yazın!**"
+    "**Lütfen** `aç` **yada** `kapat` **Yazın!**"
   );
 };
 exports.conf = {
