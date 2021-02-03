@@ -129,101 +129,23 @@ client.on('error', e => {
 
 //KOMUTLAR BİTİŞ
 client.login(ayarlar.token);
-
-
-
-client.on("messageUpdate", msg => {
-  const i = db.fetch(`${msg.guild.id}.motion`);
-  if (i) {
- const motion = [
-      "oç",
-      "amk",
-      "ananı sikiyim",
-      "piç",
-      "orospu çocuğu",
-      "orospu",
-      "kahbe",
-      "kahpe",
-      "ebeni sikim",
-      "anneni sikeyim",
-      "göt",
-      "o.ç",
-      "annen"
-    ];
-    if (motion.some(motion => msg.content.includes(motion))) {
-      try {
-        if (!msg.member.hasPermission("BAN_MEMBERS")) {
-          msg.delete();
-
-          return msg
-            .reply(
-              `${msg.author.tag}, **Hey Dostdum Bu Sunucuda Küfür Söylemek Yasak!** :YanpSnennleGif:`
-            )
-            .then(msg => msg.delete(3000));
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    }
-}
-  if (!i) return;
-});
-
-client.on('message', async message => {
-  try {
-  let ke = await db.fetch(`reklam_${message.guild.id}`)
-  if (ke === "kapali" || ke === undefined || ke === null){
-    return;
-  } else if (ke === "acik") {
-    let reklam = ["https", ".xyz", ".net", ".org", ".biz", "http", ".me", ".gg", "www.", ".com", ".io", ".gl", ".az", ".com.tr", ".pv", "net", ".party", ".tk", ".rf.gd",]
-    if (reklam.some(word => message.content.includes(word))){
-        if (!message.member.hasPermission("BAN_MEMBERS")) {
-        message.delete();
-        const embed = new Discord.MessageEmbed()
-        .setDescription("Bu Sunucuda Reklam Yapmak Yasak! Bir Daha Reklam Yapma")
-        message.channel.send(embed)
-        const mesaj = new Discord.MessageEmbed()
-        .setDescription("**Sunucunuzda bir kişi reklam yaptı.** \n**Kullanıcı:** "+ message.author.tag +" \n**Mesaj:** ___"+ message +"___ ")
-        message.guild.owner.send(mesaj)
-      }
-    }
-  }
-  } catch (e) {
-      let ke = await db.fetch(`reklam_${message.guild.id}`)
-  if (ke === "kapali" || ke === undefined || ke === null){
-    return;
-  } else if (ke === "acik") {
-    let reklam = ["https", ".xyz", ".net", ".org", ".biz", "http", ".me", ".gg", "www.", ".com", ".io", ".gl", ".az", ".com.tr", ".pv", "net", ".party", ".tk", ".rf.gd",]
-    if (reklam.some(word => message.content.includes(word))){
-        if (!message.member.hasPermission("BAN_MEMBERS")) {
-        message.delete();
-        const embed = new Discord.MessageEmbed()
-        .setDescription("Bu Sunucuda Reklam Yapmak Yasak! Bir Daha Reklam Yapma")
-        message.channel.send(embed)
-        const mesaj = new Discord.MessageEmbed()
-        .setDescription("**Sunucunuzda bir kişi reklam yaptı.** \n**Kullanıcı:** "+ message.author.tag +" \n**Mesaj:** ___"+ message +"___ ")
-        message.guild.owner.send(mesaj)
-      }
-    }
-  }
-  }
-})
-
+//--------------------------------------------------------------------------------------\\
 
 client.on("message", msg => {
-  var dm = client.channels.cache.get("806237068250447982"); //mesajın geleceği kanal idsi//
+  var dm = client.channels.cache.get("804912783116206120");
   if (msg.channel.type === "dm") {
     if (msg.author.id === client.user.id) return;
     const botdm = new Discord.MessageEmbed()
       .setTitle(`${client.user.username} Dm`)
       .setTimestamp()
-      .setColor("BLUE")
+      .setColor("RANDOM")
       .setThumbnail(`${msg.author.avatarURL()}`)
-      .addField(":boy: Gönderen ", msg.author.tag)
-      .addField(":id:  Gönderen ID :", msg.author.id)
-      .addField(":globe_with_meridians: Gönderilen Mesaj", msg.content);
+      .addField("Gönderen", msg.author.tag)
+      .addField("Gönderen ID", msg.author.id)
+      .addField("Gönderilen Mesaj", msg.content);
 
     dm.send(botdm);
   }
   if (msg.channel.bot) return;
 });
+//--------------------------------------------------------------------------------------\\

@@ -1,34 +1,31 @@
-const Discord = require("discord.js");
-const db = require("quick.db");
-
-exports.run = async (client, message, args) => {
-  if (args[0] === "aç") {
-    db.set(`${message.guild.id}.motion`, true);
-    message.channel.send(
-      "**Küfür Engel Sistemi Başarılı Şekilde** `Aktif` **Edildi.** **Bot ban yetkisi Olanların Mesajını Silmeyecektir.**"
-    );
-    return;
-  }
-  if (args[0] === "kapat") {
-    db.delete(`${message.guild.id}.motion`);
-    message.channel.send(
-      "**Başarılı Şekilde** `Devri Dışı` **Edildi.**"
-    );
-    return;
-  }
-  message.channel.send(
-    "**Lütfen** `aç` **yada** `kapat` **Yazın!**"
-  );
+const { MessageEmbed } = require('discord.js')
+const db = require('quick.db')
+const ayarlar = require('../ayarlar.json')
+var prefix = ayarlar.prefix 
+exports.run = async (client ,message, args) =>{
+if(args[0] === 'aç') {
+if(db.has(`kufur_${message.guild.id}`)) return message.channel.send(new MessageEmbed().setDescription(`${message.author} Komut zaten önceden \`açılmış\`. \n Kapatmak için: \`${prefix}küfür kapat\``).setColor('RED').setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setTimestamp()).then(x => x.delete({timeout: 5000}));
+db.set(`kufur_${message.guild.id}`, "acik")
+message.channel.send(new MessageEmbed().setDescription(`${message.author} Küfür filtersini başarıyla \`açtın\`.`).setColor('RED').setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setTimestamp()).then(x => x.delete({timeout: 5000}));
+return
+}
+if (args[0] === 'kapat') {
+if(!db.has(`kufur_${message.guild.id}`)) return message.channel.send(new MessageEmbed().setDescription(`${message.author} Komut zaten önceden \`kapatılmış\`. \n Açmak için: \`${prefix}küfür aç\``).setColor('RED').setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setTimestamp()).then(x => x.delete({timeout: 5000}));
+db.delete(`kufur_${message.guild.id}`)
+message.channel.send(new MessageEmbed().setDescription(`${message.author} Küfür filtersini başarıyla \`kapattın\`.`).setColor('RED').setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setTimestamp()).then(x => x.delete({timeout: 5000}));
+return
+}
+message.channel.send(new MessageEmbed().setDescription(`${message.author} Komutu çalıştırmak için \`aç\` veya \`kapat\` demen gerekiyor.`).setColor('RED').setAuthor(message.member.displayName, message.author.avatarURL()({ dynamic: true })).setTimestamp()).then(x => x.delete({timeout: 5000}));
 };
 exports.conf = {
-  enabled: true,
-  guildOnly: false,
-  aliases: ["küfürengel", "küfür-engel", "küfür"],
-  permLevel: 0
+ enabled: true,
+ guildOnly: false,
+ aliases: ['küfür', 'küfür-engel'],
+ permLevel: 0
 };
 
 exports.help = {
-  name: "küfür-engel",
-  description: "",
-  usage: ""
+ name: 'küfür-ayarla',
+ description: '',
+ usage: ''
 };
