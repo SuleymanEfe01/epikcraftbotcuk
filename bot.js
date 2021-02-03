@@ -169,26 +169,45 @@ client.on("messageUpdate", msg => {
   if (!i) return;
 });
 
-// REKLAM ENGEL GENEL BOT VATİKAN
-
-
-client.on("message", msg => {
- if(!db.has(`reklam_${msg.guild.id}`)) return;
-        const reklam = [".com", ".net", ".xyz", ".tk", ".pw", ".io", ".me", ".gg", "www.", "https", "http", ".gl", ".org", ".com.tr", ".biz", "net", ".rf.gd", ".az", ".party", "discord.gg",];
-        if (reklam.some(word => msg.content.includes(word))) {
-          try {
-            if (!msg.member.hasPermission("BAN_MEMBERS")) {
-                  msg.delete();
-                    return msg.channel.send(new Discord.MessageEmbed().setDescription('Bu Sunucuda Reklamı Engelliyorum. Bir Daha Reklam Atma (:').setColor("RED"))
-          msg.delete();
- 
-            }              
-          } catch(err) {
-            console.log(err);
-          }
-        }
-    });
-
+client.on('message', async message => {
+  try {
+  let ke = await db.fetch(`reklam_${message.guild.id}`)
+  if (ke === "kapali" || ke === undefined || ke === null){
+    return;
+  } else if (ke === "acik") {
+    let reklam = ["https", ".xyz", ".net", ".org", ".biz", "http", ".me", ".gg", "www.", ".com", ".io", ".gl", ".az", ".com.tr", ".pv", "net", ".party", ".tk", ".rf.gd",]
+    if (reklam.some(word => message.content.includes(word))){
+        if (!message.member.hasPermission("BAN_MEMBERS")) {
+        message.delete();
+        const embed = new Discord.MessageEmbed()
+        .setDescription("Bu Sunucuda Reklam Yapmak Yasak! Bir Daha Reklam Yapma")
+        message.channel.send(embed)
+        const mesaj = new Discord.MessageEmbed()
+        .setDescription("**Sunucunuzda bir kişi reklam yaptı.** \n**Kullanıcı:** "+ message.author.tag +" \n**Mesaj:** ___"+ message +"___ ")
+        message.guild.owner.send(mesaj)
+      }
+    }
+  }
+  } catch (e) {
+      let ke = await db.fetch(`reklam_${message.guild.id}`)
+  if (ke === "kapali" || ke === undefined || ke === null){
+    return;
+  } else if (ke === "acik") {
+    let reklam = ["https", ".xyz", ".net", ".org", ".biz", "http", ".me", ".gg", "www.", ".com", ".io", ".gl", ".az", ".com.tr", ".pv", "net", ".party", ".tk", ".rf.gd",]
+    if (reklam.some(word => message.content.includes(word))){
+        if (!message.member.hasPermission("BAN_MEMBERS")) {
+        message.delete();
+        const embed = new Discord.MessageEmbed()
+        .setDescription("Bu Sunucuda Reklam Yapmak Yasak! Bir Daha Reklam Yapma")
+        message.channel.send(embed)
+        const mesaj = new Discord.MessageEmbed()
+        .setDescription("**Sunucunuzda bir kişi reklam yaptı.** \n**Kullanıcı:** "+ message.author.tag +" \n**Mesaj:** ___"+ message +"___ ")
+        message.guild.owner.send(mesaj)
+      }
+    }
+  }
+  }
+})
 
 
 client.on("message", msg => {
